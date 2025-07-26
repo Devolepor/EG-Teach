@@ -1,0 +1,3167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تيك أكاديمي - منصة التعلم التقني المتكاملة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb; /* أزرق أكثر إشراقًا */
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --accent: #10a0b9; /* أخضر زمردي */
+            --accent-light: #10a0b9;
+            --accent-dark: #10a0b9;
+            --white: #ffffff;
+            --light: #f8fafc;
+            --light-gray: #e2e8f0;
+            --dark: #1e293b;
+            --dark-gray: #64748b;
+            --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            --gold: #f59e0b;
+            --purple: #8b5cf6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* تصميم الشريط العلوي المتميز */
+        header {
+            background: rgba(37, 99, 235, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        header.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(29, 78, 216, 0.95);
+        }
+        
+        header.hidden {
+            transform: translateY(-100%);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo i {
+            margin-left: 15px;
+            color: var(--accent-light);
+            animation: pulse 2s infinite;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-right: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-light);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-light);
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+            right: auto;
+            left: 0;
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: white;
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .menu-toggle:hover {
+            transform: rotate(90deg);
+            color: var(--accent-light);
+        }
+        
+        /* زر الاشتراك الفاخر */
+        .subscribe-btn {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-right: 1rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subscribe-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-dark), var(--accent));
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+        
+        .subscribe-btn:hover {
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+        
+        .subscribe-btn:hover::before {
+            transform: scale(1.1);
+        }
+        .login-btn {
+            background: var(--primary-light);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .login-btn:hover {
+            background: var(--primary);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+        }
+        .login-btn i {
+            font-size: 1.2rem;
+        }
+        /* قسم البطل المتميز */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: var(--gradient);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInRight 1s forwards 0.3s;
+        }
+        
+        .hero h1 {
+            font-size: 3.0rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-weight: 900;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70%;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+        
+        .hero p {
+            font-size: 1.0rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            color: var(--dark-gray);
+            line-height: 1.8;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transform: translateY(20px);
+            opacity: 0;
+            font-size: 1.1rem;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button.primary {
+            background: var(--accent-gradient);
+            animation: fadeInUp 0.8s forwards 0.6s;
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: none;
+            animation: fadeInUp 0.8s forwards 0.8s;
+        }
+        
+        .cta-button.secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(50px);
+            opacity: 0;
+            animation: fadeInLeft 1s forwards 0.5s;
+        }
+        
+             .main-image {
+            width: 100%;
+            max-width: 600px;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0));
+            /* إزالة تأثير الحركة */
+        }
+        
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            color: rgba(37, 99, 235, 0.1);
+            font-size: 2rem;
+            animation: floatIcon linear infinite;
+            opacity: 0;
+        }
+        
+        /* قسم الإحصائيات المتميز */
+        .stats {
+            padding: 5rem 5%;
+            background: var(--gradient);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            margin: 1rem;
+            position: relative;
+            z-index: 1;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+        }
+        
+        .stat-item.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number::after {
+            content: '+';
+            position: absolute;
+            top: -10px;
+            right: -15px;
+            font-size: 1.5rem;
+            color: var(--accent-light);
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        /* قسم التخصصات المتميز */
+        .specialties {
+            padding: 6rem 5%;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .specialty-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--light-gray);
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .specialty-card.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .specialty-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-light);
+        }
+        
+        .card-icon {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            background: var(--gradient);
+            overflow: hidden;
+        }
+        
+        .card-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        }
+        
+        .card-icon i {
+            position: relative;
+            z-index: 1;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .specialty-card:hover .card-icon i {
+            transform: translateY(0);
+            opacity: 1;
+            animation: bounce 1s;
+        }
+        
+        .card-content {
+            padding: 2.5rem 2rem;
+        }
+        
+        .card-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .card-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-gradient);
+            transition: width 0.4s ease;
+        }
+        
+        .specialty-card:hover .card-content h3::after {
+            width: 100px;
+        }
+        
+        .card-content p {
+            color: var(--dark-gray);
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .card-content a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            gap: 0.5rem;
+        }
+        
+        .card-content a:hover {
+            color: var(--accent-dark);
+        }
+        
+        .card-content a i {
+            transition: transform 0.3s ease;
+        }
+        
+        .card-content a:hover i {
+            transform: translateX(8px);
+        }
+        
+        /* مسارات التعلم */
+        .learning-path {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--light-gray);
+        }
+        
+        .path-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .path-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .path-step {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+        
+        .path-step i {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+        
+        /* قسم أدوات الاختبار المتميز */
+        .tools {
+            padding: 6rem 5%;
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tools::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-light) 0%, rgba(52, 211, 153, 0) 70%);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .tools::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-light) 0%, rgba(59, 130, 246, 0) 70%);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .tools-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .tool-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--light-gray);
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        .tool-card.animated {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-light);
+        }
+        
+        .tool-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tool-image img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            transition: transform 0.6s ease;
+        }
+        
+        .tool-card:hover .tool-image img {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .tool-content {
+            padding: 1.8rem;
+        }
+        
+        .tool-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tool-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.4s ease;
+        }
+        
+        .tool-card:hover .tool-content h3::after {
+            width: 70px;
+        }
+        
+        .tool-content p {
+            color: var(--dark-gray);
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        .tool-price {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+        
+        .tool-price .original {
+            text-decoration: line-through;
+            color: var(--dark-gray);
+            margin-right: 0.8rem;
+            font-size: 1rem;
+        }
+        
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tool-tag {
+            background-color: var(--light);
+            color: var(--primary);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-tag {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .tool-btn {
+            display: block;
+            text-align: center;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0.7rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .tool-btn:hover {
+            background: linear-gradient(to right, var(--accent-dark), var(--accent));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* تنبيه المسؤولية المتميز */
+        .disclaimer {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 4rem;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .disclaimer-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .disclaimer h4 {
+            color: var(--accent-dark);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.3rem;
+        }
+        
+        .disclaimer p {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            line-height: 1.8;
+        }
+        
+        /* قسم الكورسات المتميز */
+        .courses {
+            padding: 6rem 5%;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .courses-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .tab-btn {
+            padding: 0.9rem 2rem;
+            background: none;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--light-gray);
+        }
+        
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: var(--gradient);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+        
+        .tab-btn.active {
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .tab-btn.active::before {
+            width: 100%;
+        }
+        
+        .tab-btn:hover:not(.active) {
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .course-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--light-gray);
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .course-card.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-light);
+        }
+        
+        .course-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--light);
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .course-card:hover .course-image img {
+            transform: scale(1.1) rotate(1deg);
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+        
+        .course-badge.popular {
+            background: linear-gradient(to right, var(--gold), #f97316);
+        }
+        
+        .course-badge.new {
+            background: linear-gradient(to right, var(--purple), #7c3aed);
+        }
+        
+        .course-content {
+            padding: 2rem;
+        }
+        
+        .course-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .course-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.4s ease;
+        }
+        
+        .course-card:hover .course-content h3::after {
+            width: 70px;
+        }
+        
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+        
+        .course-instructor img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+            border: 2px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover .course-instructor img {
+            border-color: var(--accent-light);
+            transform: scale(1.1);
+        }
+        
+        .course-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--gold);
+        }
+        
+        .course-rating span {
+            color: var(--dark-gray);
+            margin-right: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+        }
+        
+        .course-price {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+        
+        .course-btn {
+            display: block;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .course-btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* قسم فريق العمل المتميز */
+        .team {
+            padding: 6rem 5%;
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-light) 0%, rgba(52, 211, 153, 0) 70%);
+            opacity: 0.1;
+        }
+        
+        .team-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--light-gray);
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        .team-member.animated {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-light);
+        }
+        
+        .member-image {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .member-image::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(37, 99, 235, 0.7), rgba(37, 99, 235, 0));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .team-member:hover .member-image::before {
+            opacity: 1;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .member-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .member-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.4s ease;
+        }
+        
+        .team-member:hover .member-info h3::after {
+            width: 70px;
+        }
+        
+        .member-info p {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(10px);
+            opacity: 0;
+        }
+        
+        .team-member:hover .social-links a {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* قسم الشهادات المتميز */
+        .testimonials {
+            padding: 6rem 5%;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .testimonial-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin: 1rem;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            transition: all 0.4s ease;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        .testimonial-card.animated {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent-light);
+        }
+        
+        .testimonial-text {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+            position: relative;
+            line-height: 1.8;
+            font-style: italic;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent-light);
+            opacity: 0.2;
+            position: absolute;
+            font-family: serif;
+        }
+        
+        .testimonial-text::before {
+            top: -2rem;
+            right: 0;
+        }
+        
+        .testimonial-text::after {
+            bottom: -4rem;
+            left: 0;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .testimonial-author img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 1.5rem;
+            border: 3px solid var(--accent-light);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover .testimonial-author img {
+            transform: scale(1.1);
+            border-color: var(--primary);
+        }
+        
+        .author-info h4 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+        
+        /* قسم الأسئلة الشائعة المتميز */
+        .faq {
+            padding: 6rem 5%;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--white);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .faq-item.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-light);
+        }
+        
+        .faq-question {
+            padding: 1.8rem;
+            background-color: var(--white);
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .faq-question i {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.8rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.8rem 1.8rem;
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            color: var(--dark-gray);
+            line-height: 1.8;
+        }
+        
+        /* قسم الاتصال المتميز */
+        .contact {
+            padding: 6rem 5%;
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        
+        .info-item.animated {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .info-icon {
+            font-size: 1.8rem;
+            color: var(--accent-light);
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .info-item:hover .info-icon {
+            background: var(--accent-light);
+            color: white;
+            transform: rotate(15deg) scale(1.1);
+            border-color: transparent;
+        }
+        
+        .info-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .info-content p, .info-content a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            line-height: 1.7;
+        }
+        
+        .info-content a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .contact-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transform: translateX(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        
+        .contact-form.animated {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--light);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            outline: none;
+            background-color: var(--white);
+        }
+        
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(to right, var(--accent-dark), var(--accent));
+        }
+        
+        /* التذييل الفاخر */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .footer-logo i {
+            margin-left: 15px;
+            color: var(--accent-light);
+            animation: pulse 2s infinite;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            display: inline-block;
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-light);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+            right: auto;
+            left: 0;
+        }
+        
+        .social-footer {
+            display: flex;
+            gap: 1.8rem;
+        }
+        
+        .social-footer a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-footer a:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            border-color: transparent;
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        
+        /* نافذة التواصل المنبثقة المتميزة */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: var(--white);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 3rem;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-dark);
+            background-color: var(--light);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .modal-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+        }
+        
+        /* تأثيرات الحركة المتميزة */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* التصميم المتجاوب */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+                height: auto;
+                padding-bottom: 5rem;
+            }
+            
+            .hero::before {
+                width: 100%;
+                height: 50%;
+                top: auto;
+                bottom: 0;
+                clip-path: polygon(0 30%, 100% 0, 100% 100%, 0% 100%);
+            }
+            
+            .hero-content {
+                margin-bottom: 4rem;
+                transform: translateY(20px);
+                animation: fadeInUp 1s forwards 0.3s;
+            }
+            
+            .hero h1::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .hero-image {
+                transform: translateY(20px);
+                animation: fadeInUp 1s forwards 0.5s;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                order: -1;
+                margin-bottom: 4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: var(--gradient);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 3rem;
+                transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                margin-bottom: 2rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .specialties-grid, .team-grid, .tools-grid, .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .cta-button {
+                width: 100%;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .tab-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .modal {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط العلوي المتميز -->
+    <header id="header">
+        <nav>
+            <a href="#home" class="logo">
+                <span>تيك أكاديمي</span>
+                <i class="fas fa-graduation-cap"></i>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#specialties">التخصصات</a></li>
+                <li><a href="#tools">أدوات الاختبار</a></li>
+                <li><a href="#courses">الكورسات</a></li>
+                <li><a href="main.html">المسارات</a></li>
+                <li><a href="#team">الفريق</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="#" class="subscribe-btn" id="subscribeBtn"><i class="fas fa-user-plus"></i>للاشتراك</a></li>
+</ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- قسم البطل المتميز -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>طور مهاراتك التقنية مع تيك </h1>
+            <p>انضم إلى مجتمعنا التعليمي واحصل على أحدث المعارف في مجال التكنولوجيا، من تطوير الويب والتطبيقات إلى الأمن السيبراني والتصميم الإبداعي.</p>
+            <div class="cta-buttons">
+                <a href="#courses" class="cta-button primary"><i class="fas fa-book-open"></i> تصفح الكورسات</a>
+                <a href="#contact" class="cta-button secondary"><i class="fas fa-headset"></i> تواصل معنا</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="developer_male.jpg" alt="Tech Illustration" class="main-image">
+            <div class="floating-icons">
+                <i class="fas fa-code floating-icon" style="top: 20%; right: 10%; animation-duration: 20s;"></i>
+                <i class="fas fa-laptop floating-icon" style="top: 30%; right: 80%; animation-duration: 25s;"></i>
+                <i class="fas fa-mobile-alt floating-icon" style="top: 70%; right: 15%; animation-duration: 30s;"></i>
+                <i class="fas fa-shield-alt floating-icon" style="top: 50%; right: 70%; animation-duration: 35s;"></i>
+                <i class="fas fa-cloud floating-icon" style="top: 80%; right: 50%; animation-duration: 40s;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الإحصائيات المتميز -->
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number">500</div>
+            <div class="stat-label">طالب مسجل</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50</div>
+            <div class="stat-label">كورس متاح</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">20</div>
+            <div class="stat-label">أداة اختبار</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100</div>
+            <div class="stat-label">رضا العملاء</div>
+        </div>
+    </section>
+
+    <!-- قسم التخصصات المتميز -->
+    <section class="specialties" id="specialties">
+        <div class="section-title">
+            <h2>تخصصاتنا في تيك أكاديمي</h2>
+            <p>نقدم مجموعة متنوعة من التخصصات التقنية التي تلبي احتياجات سوق العمل</p>
+        </div>
+        <div class="specialties-grid">
+            <div class="specialty-card">
+                <div class="card-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="card-content">
+                    <h3>تطوير الويب</h3>
+                    <p>تعلم بناء مواقع وتطبيقات ويب متكاملة باستخدام أحدث التقنيات مثل React.js وNode.js وPHP.</p>
+                    <div class="learning-path">
+                        <div class="path-title">
+                            <i class="fas fa-road"></i>
+                            <span>مسار التعلم</span>
+                        </div>
+                        <div class="path-steps">
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>HTML & CSS الأساسيات</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>JavaScript المتقدم</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>React.js أو Vue.js</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Node.js وExpress</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fas fa-arrow-left"></i> استكشف المسار</a>
+                </div>
+            </div>
+            <div class="specialty-card">
+                <div class="card-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>تطبيقات الهاتف</h3>
+                    <p>احترف تطوير تطبيقات الهاتف بنظامي iOS وAndroid باستخدام Flutter أو التطوير الأصلي.</p>
+                    <div class="learning-path">
+                        <div class="path-title">
+                            <i class="fas fa-road"></i>
+                            <span>مسار التعلم</span>
+                        </div>
+                        <div class="path-steps">
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Dart لغة برمجة</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Flutter الأساسيات</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>واجهات المستخدم</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>التكامل مع APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fas fa-arrow-left"></i> استكشف المسار</a>
+                </div>
+            </div>
+            <div class="specialty-card">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>الأمن السيبراني</h3>
+                    <p>احصل على مهارات حماية الأنظمة والشبكات من الاختراقات والهجمات الإلكترونية.</p>
+                    <div class="learning-path">
+                        <div class="path-title">
+                            <i class="fas fa-road"></i>
+                            <span>مسار التعلم</span>
+                        </div>
+                        <div class="path-steps">
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>أساسيات الشبكات</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>أنظمة التشغيل</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>اختبار الاختراق</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>أدوات الأمن</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fas fa-arrow-left"></i> استكشف المسار</a>
+                </div>
+            </div>
+            <div class="specialty-card">
+                <div class="card-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <div class="card-content">
+                    <h3>التصميم الإبداعي</h3>
+                    <p>تعلم تصميم واجهات مستخدم جذابة وتجارب مستخدم متميزة باستخدام Figma وAdobe XD.</p>
+                    <div class="learning-path">
+                        <div class="path-title">
+                            <i class="fas fa-road"></i>
+                            <span>مسار التعلم</span>
+                        </div>
+                        <div class="path-steps">
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>أساسيات التصميم</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>نظرية الألوان</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>أدوات التصميم</span>
+                            </div>
+                            <div class="path-step">
+                                <i class="fas fa-check-circle"></i>
+                                <span>تجربة المستخدم</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fas fa-arrow-left"></i> استكشف المسار</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم أدوات الاختبار المتميز -->
+    <section class="tools" id="tools">
+        <div class="section-title">
+            <h2>أدوات اختبار الاختراق في تيك أكاديمي</h2>
+            <p>مجموعة من الأدوات الاحترافية لاختبار الاختراق والأمن السيبراني</p>
+        </div>
+        <div class="tools-container">
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://media.licdn.com/dms/image/v2/D4E22AQEi0xqckWeHGQ/feedshare-shrink_1280/feedshare-shrink_1280/0/1707408681382?e=1756339200&v=beta&t=a2bH_JU-tfLv6yc2IuoFe21odhB11G7GOslFx0coXUI" alt="Kali Linux">
+                    </div>
+                    <div class="tool-content">
+                        <h3>كراكس رات</h3>
+                        <p>نظام تشغيل متخصص في اختبار الاختراق والأمن السيبراني</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag">اختبار اختراق</span>
+                            <span class="tool-tag">أمن</span>
+                        </div>
+                        <div class="tool-price">
+                            <span class="original">1000ج</span>
+                            <span>650ج</span>
+                        </div>
+                        <a href="#" class="tool-btn" data-tool="Kali Linux"><i class="fas fa-shopping-cart"></i> شراء الأداة</a>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://www.imperva.com/learn/wp-content/uploads/sites/13/2022/04/Screen-Shot-2022-04-03-at-14.41.09.png" alt="Metasploit">
+                    </div>
+                    <div class="tool-content">
+                        <h3>Metasploit</h3>
+                        <p>إطار عمل لاختبار الاختراق وتطوير الثغرات الأمنية</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag">اختبار اختراق</span>
+                            <span class="tool-tag">ثغرات</span>
+                        </div>
+                        <div class="tool-price">
+                            <span class="original">600ج</span>
+                            <span>400ج</span>
+                        </div>
+                        <a href="#" class="tool-btn" data-tool="Metasploit"><i class="fas fa-shopping-cart"></i> شراء الأداة</a>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSos8p4fuRDwv1YF7YsHFf76jSSw4sLooqZ9A&s" alt="Wireshark">
+                    </div>
+                    <div class="tool-content">
+                        <h3>Wifite</h3>
+                        <p>أداة لاختبار أمان الشبكات اللاسلكية و اختراق الشبكات اللاسلكيه (لأختبار الامان)</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag">تحليل شبكات</span>
+                            <span class="tool-tag">أمن</span>
+                        </div>
+                        <div class="tool-price">
+                            <span class="original">700ج</span>
+                            <span>260ج</span>
+                        </div>
+                        <a href="#" class="tool-btn" data-tool="Wireshark"><i class="fas fa-shopping-cart"></i> شراء الأداة</a>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="https://www.malwarebytes.com/wp-content/uploads/sites/2/2024/05/phishing.webp?w=1024" alt="Burp Suite">
+                    </div>
+                    <div class="tool-content">
+                        <h3>phisng </h3>
+                        <p> اداه التصيد الاحتلالي من خلال عمل صفحه Fack تشبكه الصفحه ال <samp style="color: red; font-size: 1.2em;">Real</samp></p>
+                        <div class="tool-tags">
+                            <span class="tool-tag"> الاختراق</span>
+                            <span class="tool-tag">تعلم الاختبار</span>
+                        </div>
+                        <div class="tool-price">
+                            <span class="original">260ج</span>
+                            <span>110ج</span>
+                        </div>
+                        <a href="#" class="tool-btn" data-tool="Burp Suite"><i class="fas fa-shopping-cart"></i> شراء الأداة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- تنبيه المسؤولية المتميز -->
+            <div class="disclaimer">
+                <div class="disclaimer-content">
+                    <h4><i class="fas fa-exclamation-triangle" style="color: red;"></i> تنبيه هام</h4>
+                    <p>جميع الأدوات والكورسات المقدمة في تيك أكاديمي هي لأغراض تعليمية واختبارية فقط. نحن لا نتحمل أي مسؤولية عن أي استخدام ضار أو غير قانوني لهذه الأدوات. يتحمل المستخدم المسؤولية الكاملة عن استخدامه لهذه الأدوات وفقًا للقوانين واللوائح المحلية والدولية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الكورسات المتميز -->
+    <section class="courses" id="courses">
+        <div class="section-title">
+            <h2>الكورسات المتاحة في تيك أكاديمي</h2>
+            <p>اختر من بين مجموعة واسعة من الكورسات التقنية</p>
+        </div>
+        <div class="courses-tabs">
+            <button class="tab-btn active" data-category="all">الكل</button>
+            <button class="tab-btn" data-category="web">تطوير الويب</button>
+            <button class="tab-btn" data-category="mobile">تطبيقات الهاتف</button>
+            <button class="tab-btn" data-category="security">الأمن السيبراني</button>
+            <button class="tab-btn" data-category="design">التصميم</button>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card" data-category="web">
+                <div class="course-image">
+                    <img src="data:image/jpeg;base64,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" alt="React Course">
+                    <span class="course-badge popular">الأكثر مبيعًا</span>
+                </div>
+                <div class="course-content">
+                    <h3>إحتراف  من الصفر</h3>
+                    <div class="course-instructor">
+
+                        <span>M.dev</span>
+                    </div>
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(124)</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 10 ساعة</span>
+                        <span><i class="fas fa-user-graduate"></i> مبتدئ</span>
+                    </div>
+                    <div class="course-price">100ج</div>
+                    <a href="#" class="course-btn" data-course="إحتراف React.js من الصفر"><i class="fas fa-shopping-cart"></i> اشترك الآن</a>
+                </div>
+            </div>
+            <div class="course-card" data-category="mobile">
+                <div class="course-image">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhAQEhIWExUTFhUXFRcYGBUXFxIZFxcXFxcWFRgaHSggGhsoGxoVIz0hJiktLi4uGB8zODMtNygtMCsBCgoKDg0OGhAQGy0lHyUuLS0tLTAtLS0tLy0tLS0tLS0uLS0tLS0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAKgBLAMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABEEAACAQIDBQQGBgcHBQEAAAABAgADEQQSIQUGMUFREyJhcQcyUoGRoRQjQrHB0RUWYnKCkuEzQ1RzorLwF1OTw9Ik/8QAGwEBAAIDAQEAAAAAAAAAAAAAAAEDAgQFBgf/xAA1EQACAQIEBAIKAgICAwAAAAAAAQIDEQQSITEFE0FRYXEUIoGRobHB0eHwFTJC8TNyI1Ji/9oADAMBAAIRAxEAPwDtcgzEAQBAEAQBAEAQBAEAQBAEAQBAEEiCBAEEiCBAEAQBBIggQSIIEAQBAEAQBAEEiAIIEEiCBAEAQBAEAQBAEAQBAEAQBAEAQBAEA+EwNiIbejBh+zOITNe32sv89svzm36BiMubI7fH3bmn/I4bPkzq/wAPfsTE1DcPFWoFBZjYDnMZzjCLlJ2RMYuTstzUbaiAFjcKBcsbAADiTroJqLH027JMueHktzaw9dXUOjBlbgRwM3IyUldFJkkkCAIJEECAIAgCAIAgCAIAgCCRBAgCAIAgCAIAgCAIAgCAam0scKKhiCbmw8+OpmvicQqEMzVy6jRdWWVEPi9uVSuaki5rDusdCb697ja05c+KSc046LqbkcEkvWepL7O2ilbOF0ZCA6+ySLjXmCOc6uHxEa0M0TSq0nTdmbkvKiu0t4vr3pN3bOtMI4yst7d6+tweItytONWx9anilC3qtpa/M3lhVKlnT13/AAWKdk0Sn+kzHPToUkBKpVfLUYa6AXy8Re+ptcXyzq8JpxlVbe6Why+Kyly1FaJvXyKNvRtqgaOGoYdyadIMWzoFcMTxLDQgg8umt518NRqQnOrV0b7O6sc6vklThSpbLw1OnblrVGBwvb3z5LkH1gpJKBvEJlE83inF1pOO1zv4dNUoqXYxb11SOxH2SWJ8SMtvvM81xuckqa6Xf0t9TtcNgnnfXQgMLtREzGschc6Z2bKQABZQxyjyHHjNSM24pQ1t2NnEUacJ6PcnN0sWarYlrEKWUre4JGXLmIPAkg+5VnS4bUu5Q7Wv5u/0saGMXqxv42720+tyfqVgtgec7MYOWxz5SSPTuACxNgBck8gBckzFJt2RLaSuypf9QcNmICVSORATXxsWE6q4PWte6+P2OQ+N0U7ZX8PublHfbCNxZ0/eQn/beVS4XiFsk/b97FkeM4V7trzX2uT2FxKVEWpTYMragjgf+dJoThKEnGSs0dKFSNSKlF3TMsxMhAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEBnOdvY2u7VUzHNnyqM11W7WuttAADx5c+c85WlOdZxm+vfQ79KEIUVKK6dtTcqYfDYNVVamZv72qWJDHoBew58NepMnGRpK0KerW7+hTRdWd5TVl0Rv+j9aZTEPTp2U1LCoWLGsAOJvwtf59bzp8PX/AI7tfv4NLG3zpX6e4tc3zTNOrSoK5dhTDtlOYhcxyiym510F5i8qd3uYyrRjpKVvabC10PB1PvEnMu5CqwezXvMG09n08TSajVXMj8Rcg6aggjUEHmJZTqSpyUoOzE4RnGz1RX9l+j3BUagq5XqspuvatmVTyIUAA++82quPr1FZspp4SlB3SLXNI2TV2lgFrJkbTmCOKnrNfFYWGIp5Je/sy6hXlRnmiV4btVr2FRLde9f4W/GcD+Er5rZlbvr8vydX+TpWvld/Z8/wTOFSjhUytVVebMzKpY+88PCegwOA5NPJTTfd23Zx8VjFOWeo0vbsbNCvSrAOjJUAPFSGAPS4m3KNSm7STRRCdOqs0WmvAh9+q1UYSolGm9R6pFMBFZiFOrk24DKCL+Imzw9QddSm0ktdfh8SjG5uS4xWr0OZNXqMlPArhnWrcZgVOcnqFIvr1PATdo8NdPiFTiNSvmi1aK6Jaab206JLV67nOrV82FjhIUrPq+r8fb1fsJUblY5aZqMiCwJKl1zADX935zf/AJTD5rXfnb9fwNF8JrWvZe8snonoOMG9ZibYis7oPZUWpj4lT8pxuJzUq+nQ7uAp8uikXWc83RAEAQBAEAQBAEAQBAEAQBAEAQBAEAQD5IbSB9kgoG29gVqDO9NWrIx7iot2p6cGA1PmOnKcPEcPlF+pqviduhxCMlaej+B7wW7OKdsMahpqg7Oq9xdgwObsyh52t4cfKW0eHyjNSv4/gprY6MouKWu35L2B0Fp1zlBmABJ4DUwG7K7KLiKzOxqMD3ybX59AOthNOV3qeWqudSTqNPUWI4jmR8DY/A6SuUWtzGUHF2aN7dnHVDiqlAG9JaOZh7Llhlt0upPw8JtUFaJ1OGylfL0N/evbgwNDtT3nqOKdO47oYgm7W5AAnxsBM6s8sbnpMFh1iayg9Fu/Iotbe3FvxrFfBQq/MC/zmi6831PTx4VhYf4X87s0K+8VWj9f2jsyEWuzG5vwNzqPDpL8HTnXrRhf/XU1+JKhhsJObgttrJavRGnid4cRWuXr1GDa2DELr0UaAT3lPC0YL1Yr3HySrXrybzSfvNVGJubE21J428SZe2loavLb13LVulj6mDrp2yPTpV7KS6sov9lhccifg05uOpQxNJ8tpyjro/gdDh854Wqs6ajLTX4HVBUUaEgE8ASNfKeZR6dnrslzZ8ozWtmsL2ve1+Nr8pN3axjbqVn0j4808G1GmR2uLZcPSF+JqnK3+m+viJs4SCdTM9lq/YV1naNlu9Ca2ZgloUaVBPVpIqDxCgC58ec1pyc5OT6l8Y5UkbMxJEAQBAEAQBAEEiCBAEAQBAEAQBAEAQBAIrbWy3rFclXsxazAhjcX+zZlymxbveXSaOKwEMROM5N6dP32l9Kty01YlZvFBhxeKSkpeowRRzP3DqfCQ5JK7LKdOdSWWCuyBw2+VB6mQhkUmwc2t4ZhyHjKViIt2OjU4RXhDNo32X7qT1akSVINrX995twko3ujkSjc0d48TkoP1eyD38fleUzehq46pkoPx0/fYU5azaa6gEA81B45TxB4+VyRrrKLtHCjWkl3tt4GVHsoW9lGoUAACwtc2GunW8wbbVg6knFQ6EbsfBbTq9pWwdajh0rnV3AaocpYAAFGFhN6lBKOp18FHLB26/Q1N7d08eaWfEbRfEAG/ZhcqXHOwNr+NpjWinHRHc4dPLWUrlVwWKJWx9ZdG/OcqSsz3VGSnE87WXOlx9nW3Uc5fhazpVFJGlxTCc+g0/1Efga2hS/l5T32DrqrBNfvgfJcdhnRqOL6fqZfv1soK5qJTqAulPPlORKjoAyllVlIyPdeNnRmBvpfnfx9eUVGTXXfVpfHffwZt+m0YNuKf3/diIxe3XrU1pMiL3szsoANTLcUhw0yIcg1NwBfhN+hg40Zuad+i8O/vZoYjEutBQa8X9DoW6mKo7QwvYYlErNQIDBwGuLdyoL87XF+Nwes4mPoyw1bNDRS/WjrYGqq9LLPVr9TJD9TMINUWrS/yq+Ipj+VamX5TU9KqdbPzSf0NzkwWwwW6GHp11xLNWr1E/szWqvV7LxTN+N4liZuGTRLrZWEaMVLNufdubxdjVp4amoeq9vWbKq5jZQT1J5eXWaVSrlaitzrYTAc6nKtN2iuyu9N/cZ93dujFBwVyPTNmW9xrcAg+4yadTOYY3BPDNO909mTEsNEQSIIEAQBAEAQBAEAQBAEAQBAEAQBAEEkZvFtdcJQeu3KyqD9pmOVQfC5+AMxnLLG5fhaHPqxp9/l1OWbS2vVrtnqsWPIcAvgq8pzpTlJ3Z7ShhKdCOWmrfN+bJTGbvtSw30pq1MqQhQJds+cgCzaDgb+6WSoOMMzZo0uJRq11RjB31vfS1vAmNy96PVwtZugpOflTY/cfd0llCt/jI0uK8NtevSX/ZfX7+8s+8tEthcRlTO606j0161FQlB7zYe+bdr7nma9KNWGWRx7d/ev6RUpUiEpmqcqs1yuYjuroeZsBpxIh0TlPh6WqZbcRsnEsMhamoOjEZibc7AiYKjZlKw1mWnZFEU0SmvBAAPzM2I6HQpaKxJ4iiKiFTwIktXNyEmndHF96N3atCuzU0urcROdWpO563h/EIqOrNOlsfGPly01AJsSSO6OZsSL+U05zpU3aUtTdqcSdvVjf98Tzt/dtMIoNOrUqvcNcoiU8moIUBixN7ceU73BuJwc8iej79/yeI4zRlN53G32/BEJilNgLknkASZ7B1opXZ5jlPoZ0Ln1aTnzGX75rzx1KPVe8jlLqzqnouwApI71NKtYAgXuFQahf3tbn3dJ57H8RWJqZI7R+L6nR4a6cZOK3ZZH27Rph/pNWnQKsw77qtxfTLc66W4TWidRmvs3fPA1664aliA9Rr5QA+U5RcgMRYm1zYHkZEl1Ji+hDb3bvYo4pMbhVFUg02KEqCHp2ynvEAqQF0uDoeumlVpScs8T0HDuIUYUJYevdJ31XZ7/ALqSO4uwKmFSo9e3aVLd0G+RVvYEjQsSTw8JlRpOC13KOKY+GJlFU16sfiy0y85IgkQQIAgkQQIAgCAIAgCAIAgCAIAgCAIBpbZ2XTxVGph6wujjW3EEahlPIg2MiUVJWZZSqypTU47o4ntbZtbA1jhq+vOjU+zVTl/ENARyPuJ59Wm4s9pgMbDEQuv9Pt9h+kqnZChnPZh84TkGIIJHxOnC5vxmGd5cvQ2/RKarc63rWsb+7GyqmLrIqKxpqw7WpwVANSobm9tLDUXubTOlSc34Gnj+IU8PBpO8ui/eh2qdE8RY/P8A6Td3zg8cTTBFLEXq0yNMjXu6g8rMQfJhbhLou6KpLUs1P0ir2NPNRZ62UdobhULcCRa5142sOMnKU8rU+YrbW1nXOmHekh9ikS9v4rt8AJXKtSg7SkjOEE/66kl6Pd7KlSq2ExLlma/Zs1gwZfWpt7rkX6EcxLH3RmXjaOHDKTYEzUxmdU24F1GVpWOe4WqyNUo1D3kJN/aUm4Pz+c8tP1vW7/M9JSalHQyY3DrWUK1xY3BHESaVSVN3RjWw8aqsz7s3ZaKlegKjKuITIxuAAb3RjYcjx8CZ0MPxGfNWfY5uJ4ZF0pKG9jFgcNTsQ1MB0JVwdbMuh4zqzlO+54SopQk0yXoYkqVYGxBuJRZp3MYTcJKS3RA+mLY/bUqG1KVyEAp1l1OVSe69uRDd0nmCvIToUp3R6SFRVYKa6nOU2gVNJ6QyVKTKyuLkjJqupPW/usOUuMrn6L3X20uNw1LEqLFhZ1/7dRdHT3H4ix5yhqzLU7krIJEAQBAEAQBAEAQBAEAQBAEAQBAEAQSIB5d7AkwErux5o1c15JlKOUjd5dgUsbRajVFuaOPWptyZfy5iYSipKzLMPiJ0J54/7Kfsb0ZZXvi6/aoOCICmf/Ma97eA+MojhkndnWr8cqThlpq3i9S/4eklNVp01CIosqqAFUdABNpQOFKpmd27szAwEcr9OOIqKcAtvqSat2twqWXKCeXdz6efSZwMJlX3DWn9Jz1P7tcyaE964sbeAvNuhT5jatcoqbE7tL0g16eIdAiGmjWsQQzD2r8iePCc7F8PjO8b2aM8M1Sebe5j3qxNOrTpY+k2WspRrgEE6jLytdTb5zQ4dz6c3SqLTXrs19GdfGYZcpVYbae5nSt2dsrjMNTriwJGWovsOPWH4jwInXavozlFc3z2aVIxCDVPW/aTn8PznmMZQ5VRro/mdnA17+qQq4tLA5xY9SJpZWdfMjJQxQdgiBqjHQBVY/O1plGjObskYTqwirtli2puxWLU6tEoXZFWsGJUFlFg4IBubae4T01Om1TjGT1SPE8QwnPqudPS7FHdTEH161JP3UZ/mxX7ply0a0eF/wDtIsabLp9gcM4zoyFHvbvhhZr263MsStsdOlSjTgoR2PzlvDsZ8Fia2DqE/Vm9Nj/eU29R/MjQ+KkcpendGLVi1+ibeP6PiPo9QkUcSQoJ0Va1rJ/MO57kmM1dGUXY7hKiwQBAEAQBBIggQBAEAQBAEAQBAEAQBAEA+GAALcNIJPLvbTnMoxuYSlY16texIPG1x4y6MNLorcj7Te4va0NWYR7pVRe15hKLtcyjIjd7tgpjsLWwrWBYXpsf7uouqN5X4jmCRzladjNq6Pz1gq9XD1SrApVosUdT1BsQfhx982qVRwlmRTJXVmTOG2lRq10fEr3b97jYLr010m1Vq06kW3ubFLlKyZn3q27RrZaWGQpTFrm2UNbgFXkP+W689U4qWbqbGIxrnT5Uf6/unkWj0MGpnxev1dk0/bueHjlvf+GZM0EdMxOHDixE169CNaNpFkJuDuiETYuGUnLRQ/wrKIcJhu2Wyx1R6XG7GyqeBV6dEvkqVC5DNmyk2Hd6CwGnhOjyIqNkavMd7sshPSa5eeaTEjUWMmSSehEW3ue5iSc/9MO7X0jDDF01vVwoJIHF6R1dfG3rDybrM4uzMJo4+mMNRArFmYG6EE6C3QDlbTprLTA73uBvH9Owiux+tpns6w55hwe37QsfO45SmSsyyLuWWYmQgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgGOtTvw4jh+UzhKzMZK5gvcXFr+PKW+ZWY+PV/LQTLbwMT7mtxIHgNTItfYk2qTXEpkrFsWcv9K25NarVXHYOkajsMtemtszW0WoBz00PPRfGIyIlE5QjOz9nYIc2U5r9w3ynN0sZZcrL/ALJ9F1arY1qxUdFAX5m9/hBJ0fdfdangUy02NtSb8yeJJgE8zCx5iLO4ImloSh+zw8Rym29dSpaaGWYkm9g64Km5Hc0OvAWvr00mnWSUi+m21Y1025RJyhifG2k1PSIXsbzwVZK7RIZxbNfTjeXrU1bO9jylQNccfmDBMotbn56332D+jsZVoqv1FcF6OtrIWBamDyKNYc9Mt+Mui7ooasza3I3jbA4unVqKyUa4FOrmvbKLBapJAuVOpPRmiSugnY7/ACktEAQBAEAQSIIEEiCBAEAQBAEAQBAEAQBAEAQDXrLY5uR4/nLYO+hXJW1MVXTmbcgBM76GNjXatbonzM154hLxM1BmXCVwTpc+JP4SadaFTRNewShKG6ZvqYasZJ3OF+mPd76PilxiD6rFXz24LVA738w73mHmcWVyRf8A0b7wnF4IKWvWw9qb9WFu4/vUceqmZq19SHsT7MTxN5sJJFZmwr8VPA/fMJrqZRZixOHJIINiPmJlCehEo3CYa/rEt4DQfLWHPsMvcoW8gfZ2PdwT9G2iFVrkns6qWsL8hb5M3szSxMZVKbtubmDnGnWi5bFg2Oq5SCNes5dK1rHcxLle6LBsaro1I/Z1HkeI+P3zcoS/xOXioaqa6/MkUpgcBaXmq23uVf0kbtfT8G6oPrqV6lHxYDVPJhp55TymUXZmElc4bhtvEKRURXGTJ3tCORzX8PLgJaV3O8ejqpWbZ2ENf1sndvxNO57It45MvylUty2OxZJiZCCBBIggQBAEEiCBAEAQBAEAQBAEAQBAEAQD4RANOqtrrew5Hw/pLJvNG/vK0rOxV6+JDlmucovbiS1gTcjidBwnlMTiZVZeB3qVBUY//QoVbWYAob2twNr25fGa8ZOErxepZKOZWkWDCbTXsc9Q8yp6sfD3T0WFxbnRU57rQ5U8K+Zkh5kNvTTo43B18KylLrmpMdclRdUOmvHTxBI5y9YpN3YlgZpWVmcf3A282AxiGpdUJNKuDyUm2Y+KMAb9LjnNxO6ujRaadmd9q0Dfu6g8JdGatqYNagYe2rECHO+iGXuequKTzkKnIlyRhfHHkAPnM1SXUxzkbt/ZS4/DVsLUIzMM1Nj9l19U/HTyJmM45dUSnfRlX3B2g7o1CsCK2HPZ1AeOlwD8iPMHrORWpZKl1szt0K/NpWe6LbTYq6uOXHxHMTBNxlcyklODiywI4IBHAzdTuro5bTTsz1JIIOlufgFrPiRhKRquxcsVzd48WUNcKSbm6gXJMm7IyonJBIgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIJNLbQPYVrDUIxHw5e68pxLaozt2Zbh0udC/dFHpYnKG9Y8dFsL6aa8R5ieVO/Ug3seTicqksdWJPvJvp4CLXIcbKxK4vBOuGouQeLMw9nNbLf3ATswoSp0Iv2v2mph60ZV5L3ew16Fd2UZl0HxkqTa1NmcIJ6M5t6SdjilWXFIO7V7tQdHA/FR8V8Z0cJUusnY4+Po2kqi67+Z0X0XbwHFYM0C312GAS/NqZ/s2+AK/w35zdVr6nP6E+T1m2ikQBAMlANcFRe0xm1azJVyob9Yc4HF0dq0weyqEUsUo8dA9utgPeq+0ZpThnjY2aVTlyuWmnUDAMpBDAEEcCDqCJzjrJ31Rno12XgfdyMyjNx2MJ04z3NtNpDmvwlqrd0a7wz6M9/pFeh+X5yeciPR5Ebt7ePsKT1EpF2UXAJAFri5JFzoLn3SY1YuSj3Dw01By00Kh/1Rf/AAy/zt+U2eWamYzYP0nlqlNXw4CswBIc3F9L6jraRKFk2ZR9aSXcu1LaysLhT8RNRV0+htvCyTtc9fpIeyfjJ5y7EejPuP0kPZ+f9I53gT6M+4/SX7Pz/pHO8B6M+58/SX7Pz/pI53gPRvEkJeaogCAIAgCAIAgCAIJEECAIJEECAVnau65JzYd1TqrglR+6RqvlYzl1uGQbvTdvDp+DpUuISStUV/Hr+TzsjdLI4q4h+1YahQO6D434+VgJnQ4fGDzSd/DoV1sbKatFW+ZYsYpNOoALkq1h1NjN+avFo1KbSmn4opNHGBSysOM5cZ20Z6CVLMk4mDbuyhisPUpkesNDbgRqCPI2MshJxamiicIzTpy6nLtzdsvs/Gq7ggITTrL1pkgP52IDDrlE7Cakro8/KLhJxluj9AVsPmIZLFWAINxbXW48JfCoktSpx1PSYDqfhDrdkMhsJhVHK/nrK3OTMlFGQkAdBMSTS2jhqWKpVcM/eWopVrcr8CDwuDYjykuLWrF0yh7j4mpRavsuv/aYQ9w+3SJupHhqCPBgOU0sTCzzLqdDB1LrI+hbbzWNywvABaQTY0tqAPTYHUEEHyMxk+pbTjrZ9Tj2LBViv/NND907Kd1c8/KOVuL6Gu76GSYnXt28f2lCm/NlUnztrOPL1ZOJ3/7xjLuiV7WLkZR2kXGU+9pFyMp9zyRYsc3jkCAIAgCAIAgCCRBAgCAIJEECCRBAgCAIBXdvbGBdayjS4zj8ffNOvQ9bMvadTB4tqLpv2GuMSFazDSV5knZlzptq6OW+knZASqMWo7rd1/O3dY+Y09w6zawlRXcH5o0uIUdFWXk/Pp++RePRBvD2+GOEc3qYYDL1akfV/lPd8Bl6zdOaXp6rXIVCfEkAfmZkkurIueHDWJdwgHG2lv4mi8VsiLMre099dm0D3sQKzC+lO9Y3HEXHcB8yIzy6CyKptX0xAd3DYa3Rqrf+tP8A6mNibmLdGrWrYirj8SfrawC5QMoRBYAW5aKunhrqTOZiMSpSyR2R3cJgJU6fMqaN7Lw8S+BpgTY8PWAkN2JUWalXEStyLowNavX7pmLkWQhqcs2+1qreb/7jO1Qd6cfJHnsWrV5rxZGZ5aax0ncbEf8A5qXkR/qM4+I0qyPRYZXw8H+7llFaVXLcp6FaTcxynsVYuRlPYqSbkWLZOkcMQBAEAQBAEAQBAEAQBAEAQBAEAQBAPhF9IBWdt7OK8OB4H8DNCvStsdfCYjNo9yo7boirTejUGjAg+HQ+YNj7pqqbhJSW6OnyY1YOD2ZzPB4vEbPrh1Y06iXysPVcHiLHRlPQ/eJ3KVWNSN4nlcRh6mHnlqL7PyLRV9J+0q4yUginmaVIlv8AUWA+EylKMNZOxhTpzqO0It+SuRdbZu0MYb16jH/NcvbxVBcD5TVnjqUf66nRp8IxEtZWivF6+5fdElgtxF41ajP4Dur8tfnNaeOqS/qkvibsOFYeH/JJy+C+/wASxbP3boUvVpqD1tc/E6zWlKc/7O5u01So/wDFBL5+/cmKFFE1EhJIidSU9zZbF+MzzFKpmu+KmLkWqma1SsZg2WxgYK9U5TIuZxjqc02vWzVGPi3+4z0FFWpxXgjyOJlmrTfi/maOaWFB0TdEFcPS/dv8dfxnDxLvVkeqwkbYaC8PmTwqGU3LsqPYqmLkOKPa1DMjHKj2K0XMcpfp1zzYgCAIAgCAIAgCAIAgCAIAgCCRBAgCAIB4q0wwKsLgyGk1ZmUW4u6KztnYR1I1HXmPMfjNGth2tUdbC43o9GVHF7HPNbjxFxNPI1sdmOIjNWZ4o4cJoFA90x8zLPpZGytUjgJNytxufe2aTmYyIdo0XYyxGcyLsWQ1MakaIyLSMySMXJGalg2PKSotmEqqRpbf+po1Kh+ypPv5D42mcKTlJR7mDxChCU+yOUVHuZ3jyQpUy7Ki+s5CjzY2EhuyuzKMXKSiup2HZ2zSiKoGgAA92k4TTbuerdSMUorobf0Q9JGUx5qH0U9JOUc1Hr6OekWZGdD6OekZWOYi+TrHnBAEAQBAEAQBAEAQBAEAQBAEEiAIIEAQBAEA1MRs6m/FbHqNP6SuVKMuhdCvOGzI+ru8p4N8V/EGUvCrubMcfJbr4mE7sj2h8D+cx9E8Sz+RfY+fqwPaHwMeieI/kX2Pv6sj2h8DHoniP5F9j6N2x7Q+B/OPRPEj+RfYyJu8PaH8v9ZKwviYvHvt8Tao7FpjjdvkPlLFh4rcpljKj20N6lQVfVUDyEuUUtka8pylu7mPHYKnWRqVWmtRGtmVgGVrEEXB8QD7pkY2In9TNnf4HD/+Nfyk5n3IyozYPdbBUnWrSwlBHQ3VlpqGU2tcG2mhMjMxlRMSCRAPkAQD7AEAQBAEAQBAEAQBAEAQBAEAQBAEAQSIIEAQBAEAQBAEAQBAEAQBAEAQBBIggQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEEiCBAEAQBAEEiCBBIgCCBAEAQSIAggQBAEEiAIIEA/9k=" alt="Flutter Course">
+                </div>
+                <div class="course-content">
+                    <h3> تطوير تطبيقات الويب & الهاتف </h3>
+                    <div class="course-instructor">
+                        <span>M.dev</span>
+                    </div>
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(87)</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 12 ساعة</span>
+                        <span><i class="fas fa-user-graduate"></i> متوسط</span>
+                    </div>
+                    <div class="course-price">400ج</div>
+                    <a href="#" class="course-btn" data-course="تطوير تطبيقات الهاتف ب Flutter"><i class="fas fa-shopping-cart"></i> اشترك الآن</a>
+                </div>
+            </div>
+            <div class="course-card" data-category="security">
+                <div class="course-image">
+                    <img src="https://www.kali.org/images/kali-logo.svg" alt="Ethical Hacking">
+                    <span class="course-badge new">جديد</span>
+                </div>
+                <div class="course-content">
+                    <h3>الأمن السيبراني والاختراق الأخلاقي</h3>
+                    <div class="course-instructor">
+                        <span> Mahmoud Mohamed</span>
+                    </div>
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(156)</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 20 ساعة</span>
+                        <span><i class="fas fa-user-graduate"></i> متقدم</span>
+                    </div>
+                    <div class="course-price">650ج</div>
+                    <a href="#" class="course-btn" data-course="الأمن السيبراني والاختراق الأخلاقي"><i class="fas fa-shopping-cart"></i> اشترك الآن</a>
+                </div>
+            </div>
+              <div class="course-card" data-category="design">
+                <div class="course-image">
+                    <img src="data:image/jpeg;base64,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" alt="Figma Course">
+                </div>
+                <div class="course-content">
+                    <h3> كورسات متنوعه </h3>
+                    <div class="course-instructor">
+                        <span> محمد</span>
+                    </div>
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(92)</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 20 ساعة</span>
+                        <span><i class="fas fa-user-graduate"></i> مبتدئ</span>
+                    </div>
+                    <div class="course-price">$100</div>
+                    <a href="#" class="course-btn" data-course="  جميع الكورسات متوفره "><i class="fas fa-shopping-cart"></i> اشترك الآن</a>
+                </div>
+            </div>
+            <div class="course-card" data-category="design">
+                <div class="course-image">
+                    <img src="data:image/jpeg;base64,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" alt="Figma Course">
+                </div>
+                <div class="course-content">
+                    <h3>تصميم واجهات المستخدم ب Figma</h3>
+                    <div class="course-instructor">
+                        <span>احمد الصاوي</span>
+                    </div>
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(92)</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 20 ساعة</span>
+                        <span><i class="fas fa-user-graduate"></i> مبتدئ</span>
+                    </div>
+                    <div class="course-price">$79</div>
+                    <a href="#" class="course-btn" data-course="تصميم واجهات المستخدم ب Figma"><i class="fas fa-shopping-cart"></i> اشترك الآن</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم فريق العمل المتميز -->
+    <section class="team" id="team">
+        <div class="section-title">
+            <h2>فريق تيك أكاديمي</h2>
+            <p>خبراء في مجالاتهم مع سنوات من الخبرة العملية</p>
+        </div>
+        <div class="team-container">
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://media-hbe1-2.cdn.whatsapp.net/v/t61.24694-24/509627218_2476335489406726_583729943804085872_n.jpg?ccb=11-4&oh=01_Q5Aa2AGQ2hukwKOX-ZC8G0KBk04rkZvJQOZyfaKge9ALTsKY0w&oe=68912F62&_nc_sid=5e03e0&_nc_cat=111" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>محمود محمد</h3>
+                        <p>مطور ويب متكامل + امن سيبراني (الاختراق الاخلاقي)</p>
+                        <div class="social-links">
+                            <a href="tel:+201123961290"><i class="fa-solid fa-phone" style="color: rgb(128, 0, 0);"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://media-hbe1-2.cdn.whatsapp.net/v/t61.24694-24/487744688_1319274295821479_6370482977644361988_n.jpg?ccb=11-4&oh=01_Q5Aa2AEXRjU6Wd0dhzBea4xnATg5cDxvehmZTD3p2M98QI7Ggw&oe=6891596F&_nc_sid=5e03e0&_nc_cat=111" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>سيف</h3>
+                        <p>مصممة واجهات مستخدم</p>
+                        <div class="social-links">
+                            <a href="tel:+20121210699037"><i class="fa-solid fa-phone" style="color: rgb(128, 0, 0);"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+        <div class="team-member">
+                    <div class="member-image">
+                        <img src="ze.jpeg" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3> زياد رضا</h3>
+                        <p>automation + cyber </p>
+                        <div class="social-links">
+                            <a href="tel:+201027617186"><i class="fa-solid fa-phone" style="color: rgb(128, 0, 0);"></i></a>
+                            
+                        </div>
+                    </div>
+        </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="elsawy.jpeg" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>احمد الصاوي</h3>
+                        <p>مصمم جرافيك</p>
+                        <div class="social-links">
+                            <a href="tel:+201093376913"><i class="fa-solid fa-phone" style="color: rgb(128, 0, 0);"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الشهادات المتميز -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>آراء طلاب تيك أكاديمي</h2>
+            <p>ما يقوله طلابنا عن تجربتهم مع أكاديمية تيك</p>
+        </div>
+        <div class="testimonials-slider">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    تجربة رائعة مع كورس الأمن السيبراني في تيك أكاديمي، المحتوى كان شاملاً والمدرب خالد كان على دراية كبيرة بالموضوع وقادر على شرح المفاهيم المعقدة بطريقة بسيطة.
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Student">
+                    <div class="author-info">
+                        <h4>محمد عبدالرحمن</h4>
+                        <p>مهندس أمن معلومات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأسئلة الشائعة المتميز -->
+    <section class="faq">
+        <div class="section-title">
+            <h2>الأسئلة الشائعة في تيك أكاديمي</h2>
+            <p>إجابات على أكثر الأسئلة شيوعًا</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>كيف يمكنني الاشتراك في الكورسات؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>يمكنك الاشتراك في أي كورس عن طريق الضغط على زر "اشترك الآن" في صفحة الكورس، ثم اتباع خطوات الدفع. بعد اكتمال الدفع، ستحصل على وصول فوري إلى جميع مواد الكورس.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>هل يمكنني الحصول على شهادة بعد إتمام الكورس؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>نعم، جميع الكورسات في تيك أكاديمي تتضمن شهادة إتمام معتمدة من أكاديمية تيك بعد اجتيازك للاختبار النهائي بنجاح. يمكنك مشاركة هذه الشهادة على LinkedIn أو سيرتك الذاتية.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>هل الأدوات المقدمة قانونية للاستخدام؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>جميع الأدوات المقدمة في تيك أكاديمي هي لأغراض تعليمية واختبارية فقط ضمن بيئات مرخصة. يتحمل المستخدم المسؤولية الكاملة عن استخدامه لهذه الأدوات وفقًا للقوانين المحلية والدولية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الاتصال المتميز -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2 style="color: white;">اتصل بنا في تيك أكاديمي</h2>
+            <p style="color: rgba(255, 255, 255, 0.8);">لديك استفسار أو تحتاج إلى مساعدة؟ لا تتردد في التواصل معنا</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>العنوان</h3>
+                        <p>   الشرقيه - الزقازيق - ميت ابو علي</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>الهاتف</h3>
+                        <a href="tel:+201123961290">اضغط للاتصال <a>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>البريد الإلكتروني</h3>
+                        <a href="mailto:coldenegypt@gmail.com">coldenegypt@gmail.com</a>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>ساعات العمل</h3>
+                        <p>الأحد - الخميس: 8 صباحًا - 5 مساءً</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">الموضوع</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">الرسالة</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل الفاخر -->
+    <footer>
+        <div class="footer-content">
+            <a href="#home" class="footer-logo">
+                <span>تيك أكاديمي - منصة التعلم التقني المتكاملة</span>
+                <i class="fas fa-graduation-cap"></i>
+            </a>
+            <ul class="footer-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#specialties">التخصصات</a></li>
+                <li><a href="#tools">أدوات الاختبار</a></li>
+                <li><a href="#courses">الكورسات</a></li>
+                <li><a href="#team">الفريق</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="#">سياسة الخصوصية</a></li>
+                <li><a href="#">شروط الاستخدام</a></li>
+            </ul>
+            <div class="social-footer">
+                <a href="https://www.facebook.com/mahmoud.mohamed.706828"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@developortc"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/201123961290"><i class="fab fa-whatsapp"></i></a>
+
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 تيك أكاديمي - منصة التعلم التقني المتكاملة. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- نافذة الاشتراك المتميزة -->
+    <div class="modal-overlay" id="subscriptionModal">
+        <div class="modal">
+            <div class="close-modal" id="closeSubscriptionModal">&times;</div>
+            <h3 class="modal-title">الاشتراك في تيك أكاديمي</h3>
+            <form id="subscriptionForm">
+                <div class="form-group">
+                    <label for="studentName">الاسم الكامل</label>
+                    <input type="text" id="studentName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentPhone">رقم الهاتف</label>
+                    <input type="tel" id="studentPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentEmail">البريد الإلكتروني</label>
+                    <input type="email" id="studentEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentInterest">مجال الاهتمام</label>
+                    <select id="studentInterest" class="form-control" required>
+                        <option value="">اختر مجال الاهتمام</option>
+                        <option value="web">تطوير الويب</option>
+                        <option value="mobile">تطبيقات الهاتف</option>
+                        <option value="security">الأمن السيبراني</option>
+                        <option value="design">التصميم</option>
+                        <option value="other">مجال آخر</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-user-plus"></i> إرسال طلب الاشتراك</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة شراء الأداة المتميزة -->
+    <div class="modal-overlay" id="toolPurchaseModal">
+        <div class="modal">
+            <div class="close-modal" id="closeToolModal">&times;</div>
+            <h3 class="modal-title">شراء أداة اختبار</h3>
+            <form id="toolPurchaseForm">
+                <div class="form-group">
+                    <label for="toolName">اسم الأداة</label>
+                    <input type="text" id="toolName" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="buyerName">الاسم الكامل</label>
+                    <input type="text" id="buyerName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="buyerPhone">رقم الهاتف</label>
+                    <input type="tel" id="buyerPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="buyerEmail">البريد الإلكتروني</label>
+                    <input type="email" id="buyerEmail" class="form-control" required>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-shopping-cart"></i> إرسال طلب الشراء</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة الاشتراك في الكورس المتميزة -->
+    <div class="modal-overlay" id="courseEnrollmentModal">
+        <div class="modal">
+            <div class="close-modal" id="closeCourseModal">&times;</div>
+            <h3 class="modal-title">الاشتراك في الكورس</h3>
+            <form id="courseEnrollmentForm">
+                <div class="form-group">
+                    <label for="courseName">اسم الكورس</label>
+                    <input type="text" id="courseName" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="enrollName">الاسم الكامل</label>
+                    <input type="text" id="enrollName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="enrollPhone">رقم الهاتف</label>
+                    <input type="tel" id="enrollPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="enrollEmail">البريد الإلكتروني</label>
+                    <input type="email" id="enrollEmail" class="form-control" required>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-book-open"></i> إرسال طلب الاشتراك</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // تنفيذ تأثيرات GSAP المتميزة
+        document.addEventListener('DOMContentLoaded', function() {
+            // إخفاء الشريط العلوي عند التمرير لأسفل
+            let lastScroll = 0;
+            const header = document.getElementById('header');
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll <= 0) {
+                    header.classList.remove('hidden');
+                    header.classList.remove('scrolled');
+                    return;
+                }
+                
+                if (currentScroll > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                if (currentScroll > lastScroll && !header.classList.contains('hidden')) {
+                    header.classList.add('hidden');
+                } else if (currentScroll < lastScroll && header.classList.contains('hidden')) {
+                    header.classList.remove('hidden');
+                }
+                
+                lastScroll = currentScroll;
+            });
+            
+            // تفعيل القائمة المتنقلة
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // تأثيرات GSAP للعناصر
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // تأثيرات للإحصائيات
+            gsap.utils.toArray('.stat-item').forEach((item, i) => {
+                ScrollTrigger.create({
+                    trigger: item,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        item.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات لبطاقات التخصصات
+            gsap.utils.toArray('.specialty-card').forEach((card, i) => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        card.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات لأدوات الاختبار
+            gsap.utils.toArray('.tool-card').forEach((card, i) => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        card.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات للكورسات
+            gsap.utils.toArray('.course-card').forEach((card, i) => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        card.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات لأعضاء الفريق
+            gsap.utils.toArray('.team-member').forEach((member, i) => {
+                ScrollTrigger.create({
+                    trigger: member,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        member.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات للشهادات
+            gsap.utils.toArray('.testimonial-card').forEach((card, i) => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        card.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات للأسئلة الشائعة
+            gsap.utils.toArray('.faq-item').forEach((item, i) => {
+                ScrollTrigger.create({
+                    trigger: item,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        item.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات لمعلومات الاتصال
+            gsap.utils.toArray('.info-item').forEach((item, i) => {
+                ScrollTrigger.create({
+                    trigger: item,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        item.classList.add('animated');
+                    }
+                });
+            });
+            
+            // تأثيرات لنموذج الاتصال
+            ScrollTrigger.create({
+                trigger: '.contact-form',
+                start: 'top 80%',
+                onEnter: () => {
+                    document.querySelector('.contact-form').classList.add('animated');
+                }
+            });
+            
+            // تفعيل الأسئلة الشائعة
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                    
+                    // إغلاق العناصر الأخرى
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // تفعيل تبويبات الكورسات
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const courseCards = document.querySelectorAll('.course-card');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // إزالة النشط من جميع الأزرار
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // إضافة النشط للزر المحدد
+                    btn.classList.add('active');
+                    
+                    const category = btn.dataset.category;
+                    
+                    // تصفية الكورسات
+                    courseCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // تفعيل نافذة الاشتراك
+            const subscriptionModal = document.getElementById('subscriptionModal');
+            const closeSubscriptionModal = document.getElementById('closeSubscriptionModal');
+            const subscribeBtn = document.getElementById('subscribeBtn');
+            
+            function openSubscriptionModal() {
+                subscriptionModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeSubscriptionModalFunc() {
+                subscriptionModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            subscribeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openSubscriptionModal();
+            });
+            
+            closeSubscriptionModal.addEventListener('click', closeSubscriptionModalFunc);
+            
+            subscriptionModal.addEventListener('click', (e) => {
+                if (e.target === subscriptionModal) {
+                    closeSubscriptionModalFunc();
+                }
+            });
+            
+            // تفعيل نافذة شراء الأداة
+            const toolPurchaseModal = document.getElementById('toolPurchaseModal');
+            const closeToolModal = document.getElementById('closeToolModal');
+            const toolBtns = document.querySelectorAll('.tool-btn');
+            
+            function openToolPurchaseModal(toolName) {
+                document.getElementById('toolName').value = toolName;
+                toolPurchaseModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeToolModalFunc() {
+                toolPurchaseModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            toolBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const toolName = btn.dataset.tool;
+                    openToolPurchaseModal(toolName);
+                });
+            });
+            
+            closeToolModal.addEventListener('click', closeToolModalFunc);
+            
+            toolPurchaseModal.addEventListener('click', (e) => {
+                if (e.target === toolPurchaseModal) {
+                    closeToolModalFunc();
+                }
+            });
+            
+            // تفعيل نافذة الاشتراك في الكورس
+            const courseEnrollmentModal = document.getElementById('courseEnrollmentModal');
+            const closeCourseModal = document.getElementById('closeCourseModal');
+            const courseBtns = document.querySelectorAll('.course-btn');
+            
+            function openCourseEnrollmentModal(courseName) {
+                document.getElementById('courseName').value = courseName;
+                courseEnrollmentModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeCourseModalFunc() {
+                courseEnrollmentModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            courseBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const courseName = btn.dataset.course;
+                    openCourseEnrollmentModal(courseName);
+                });
+            });
+            
+            closeCourseModal.addEventListener('click', closeCourseModalFunc);
+            
+            courseEnrollmentModal.addEventListener('click', (e) => {
+                if (e.target === courseEnrollmentModal) {
+                    closeCourseModalFunc();
+                }
+            });
+            
+            // إرسال نموذج الاشتراك
+            const subscriptionForm = document.getElementById('subscriptionForm');
+            
+            subscriptionForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('studentName').value;
+                const phone = document.getElementById('studentPhone').value;
+                const email = document.getElementById('studentEmail').value;
+                const interest = document.getElementById('studentInterest').value;
+                
+                // إرسال رسالة واتساب
+                const whatsappMessage = `طلب اشتراك جديد في تيك أكاديمي:
+الاسم: ${name}
+الهاتف: ${phone}
+البريد الإلكتروني: ${email}
+مجال الاهتمام: ${interest}`;
+                
+                const whatsappUrl = `https://wa.me/201123961290?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                // فتح رابط الواتساب
+                window.open(whatsappUrl, '_blank');
+                
+                alert('تم إرسال طلب الاشتراك بنجاح، سيتم التواصل معك قريبًا.');
+                closeSubscriptionModalFunc();
+                subscriptionForm.reset();
+            });
+            
+            // إرسال نموذج شراء الأداة
+            const toolPurchaseForm = document.getElementById('toolPurchaseForm');
+            
+            toolPurchaseForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const toolName = document.getElementById('toolName').value;
+                const name = document.getElementById('buyerName').value;
+                const phone = document.getElementById('buyerPhone').value;
+                const email = document.getElementById('buyerEmail').value;
+                
+                // إرسال رسالة واتساب
+                const whatsappMessage = `طلب شراء أداة من تيك أكاديمي:
+اسم الأداة: ${toolName}
+الاسم: ${name}
+الهاتف: ${phone}
+البريد الإلكتروني: ${email}`;
+                
+                const whatsappUrl = `https://wa.me/201123961290?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                // فتح رابط الواتساب
+                window.open(whatsappUrl, '_blank');
+                
+                alert('تم إرسال طلب الشراء بنجاح، سيتم التواصل معك قريبًا.');
+                closeToolModalFunc();
+                toolPurchaseForm.reset();
+            });
+            
+            // إرسال نموذج الاشتراك في الكورس
+            const courseEnrollmentForm = document.getElementById('courseEnrollmentForm');
+            
+            courseEnrollmentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const courseName = document.getElementById('courseName').value;
+                const name = document.getElementById('enrollName').value;
+                const phone = document.getElementById('enrollPhone').value;
+                const email = document.getElementById('enrollEmail').value;
+                
+                // إرسال رسالة واتساب
+                const whatsappMessage = `طلب اشتراك في كورس من تيك أكاديمي:
+اسم الكورس: ${courseName}
+الاسم: ${name}
+الهاتف: ${phone}
+البريد الإلكتروني: ${email}`;
+                
+                const whatsappUrl = `https://wa.me/201123961290?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                // فتح رابط الواتساب
+                window.open(whatsappUrl, '_blank');
+                
+                alert('تم إرسال طلب الاشتراك في الكورس بنجاح، سيتم التواصل معك قريبًا.');
+                closeCourseModalFunc();
+                courseEnrollmentForm.reset();
+            });
+            
+            // إرسال نموذج الاتصال العام
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // إرسال رسالة واتساب
+                const whatsappMessage = `رسالة تواصل من تيك أكاديمي:
+الاسم: ${name}
+البريد الإلكتروني: ${email}
+الموضوع: ${subject}
+الرسالة: ${message}`;
+                
+                const whatsappUrl = `https://wa.me/201123961290?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                // فتح رابط الواتساب
+                window.open(whatsappUrl, '_blank');
+                
+                alert('تم إرسال رسالتك بنجاح، سيتم التواصل معك قريبًا.');
+                contactForm.reset();
+            });
+        });
+        // تحقق من حالة المستخدم عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    checkLoginStatus();
+});
+
+
+    </script>
+</body>
+</html>
